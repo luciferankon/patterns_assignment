@@ -6,50 +6,10 @@ let {generateLeftTriangle,
     generateAlternateRectangle,
     checkType,
     createArrayForTriangle,
-    createArrayForRectangle} = require("../src/lib.js");
-let {repeatCharacter,
-    appendLine,
-    starLineGenerator,
-    hollowLineGenerator,
-    dashLineGenerator,
-    addDelimiter,
-    modifyDelimiter,
-    justify} = require("../util/utils.js");
-
-//tests for repeatCharacter function
-assert.equal(repeatCharacter('*',5),'*****');
-assert.equal(repeatCharacter('a',1),'a');
-assert.equal(repeatCharacter('1',0),'');
-
-//tests for generateLine function
-assert.equal(appendLine('**','@@','!!'),'**@@!!');
-assert.equal(appendLine('**','dd',''),'**dd');
-
-//test for starLineGenerator function
-assert.equal(starLineGenerator(3),'***');
-assert.equal(starLineGenerator(0),'');
-assert.equal(starLineGenerator(-1),'');
-
-//test for hollowLineGenerator function
-assert.equal(hollowLineGenerator(3),'* *');
-assert.equal(hollowLineGenerator(0),'');
-assert.equal(hollowLineGenerator(-1),'');
-
-//test for dashLineGenerator function
-assert.equal(dashLineGenerator(3),'---');
-assert.equal(dashLineGenerator(0),'');
-assert.equal(dashLineGenerator(-1),'');
-
-//tests for addDelimiter function
-assert.equal(addDelimiter('ankon',''),'ankon');
-assert.equal(addDelimiter('ankon','\n'),'\nankon');
-
-//tests for modifyDelimiter function
-assert.equal(modifyDelimiter('adca'),'\n');
-assert.equal(modifyDelimiter(''),'\n');
-assert.equal(modifyDelimiter('\n'),'\n');
-assert.equal(modifyDelimiter(1),'\n');
-assert.equal(modifyDelimiter(),'\n');
+    createArrayForRectangle,
+    generateFilledDiamond,
+    generateHollowDiamond,
+    generateAngledDiamond} = require("../src/patternLib.js");
 
 //tests for generateLeftTriangle function
 let outputForLeftTriangle = '';
@@ -102,6 +62,8 @@ assert.equal(generateEmptyRectangle(3,1),outputForEmptyRectangle);
 outputForEmptyRectangle = '';
 outputForEmptyRectangle += '*';
 assert.equal(generateEmptyRectangle(1,1),outputForEmptyRectangle);
+outputForEmptyRectangle = '';
+assert.equal(generateEmptyRectangle(0,0),outputForEmptyRectangle);
 
 //tests for generateAlternateRectangle function
 let outputForAlternateRectangle = '';
@@ -122,11 +84,6 @@ assert.equal(checkType('filledrec',1,1),'*');
 assert.equal(checkType('empty',1,1),'*');
 assert.equal(checkType('alternate',2,1),'*\n-');
 
-//tests for justify function
-assert.equal(justify('ankon',5),'ankon');
-assert.equal(justify('ankon',10),'     ankon');
-assert.equal(justify('ankon',0),'ankon');
-
 //tests for createArrayForTriangle function
 assert.deepEqual(createArrayForTriangle(5),[1,2,3,4,5]);
 assert.deepEqual(createArrayForTriangle(1),[1]);
@@ -137,3 +94,29 @@ assert.deepEqual(createArrayForRectangle(5,6),[6,6,6,6,6]);
 assert.deepEqual(createArrayForRectangle(0,6),[]);
 assert.deepEqual(createArrayForRectangle(5,0),[0,0,0,0,0]);
 
+//tests for generateFilledDiamond function
+let outputForFilledDiamond = '';
+outputForFilledDiamond += '  *';
+outputForFilledDiamond += '\n ***';
+outputForFilledDiamond += '\n*****';
+outputForFilledDiamond += '\n ***';
+outputForFilledDiamond += '\n  *';
+assert.equal(generateFilledDiamond(5),outputForFilledDiamond);
+
+//tests for generateHollowDiamond function
+let outputForHollowDiamond = '';
+outputForHollowDiamond += '  *'
+outputForHollowDiamond += '\n * *';
+outputForHollowDiamond += '\n*   *';
+outputForHollowDiamond += '\n * *';
+outputForHollowDiamond += '\n  *';
+assert.equal(generateHollowDiamond(5),outputForHollowDiamond);
+
+//tests for generateAngledDiamond function
+let output = '';
+output += '  *';
+output += '\n / \\';
+output += '\n*   *';
+output += '\n \\ /';
+output += '\n  *';
+assert.equal(generateAngledDiamond(5),output);

@@ -59,10 +59,14 @@ exports.appendLine = appendLine;
 const starLineGenerator = createLineGenerator("*",'*','*');
 const hollowLineGenerator = createLineGenerator("*",' ','*');
 const dashLineGenerator = createLineGenerator("-",'-','-');
+const topGenerator = createLineGenerator('/',' ','\\');
+const bottomGenerator = createLineGenerator('\\',' ','/');
 
 exports.starLineGenerator = starLineGenerator;
 exports.hollowLineGenerator = hollowLineGenerator;
 exports.dashLineGenerator = dashLineGenerator;
+exports.topGenerator = topGenerator;
+exports.bottomGenerator = bottomGenerator;
 
 const addDelimiter = function(line,delimiter){
   return delimiter+line;

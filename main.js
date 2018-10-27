@@ -3,7 +3,8 @@ let {generateLeftTriangle,
     generateFilledRectangle,
     generateEmptyRecatangle,
     generateAlternateRectangle,
-    checkType} = require("./lib.js");
+    checkType,
+    generateFilledDiamond} = require("./src/patternLib.js");
 
 const main = function(){
   let height = +process.argv[3];

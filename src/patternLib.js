@@ -7,7 +7,9 @@ let {repeatCharacter,
     addDelimiter,
     modifyDelimiter,
     repeatCharacterGenerator,
-    createJustify} = require("../util/utils.js");
+    createJustify,
+    topGenerator,
+    bottomGenerator} = require("./patternUtil.js");
 
 const createArrayForTriangle = function(length){
   let array = [];
@@ -80,6 +82,71 @@ const generateAlternateRectangle = function(height,width){
 }
 
 exports.generateAlternateRectangle = generateAlternateRectangle;
+
+const generateUpperPart = function(height,generator,startsFrom){
+  let line = [];
+  for(let i=startsFrom; i<(height/2 - startsFrom); i++){
+    line.push(generator(2*i+1));
+  }
+  return line;
+}
+
+exports.generateUpperPart = generateUpperPart;
+
+const generateLowerPart = function(height,generator,endsWith){
+  let line = [];
+  for(let i=Math.floor(height/2); i>endsWith; i--){
+    line.push(generator(2*i-1));
+  }
+  return line;
+}
+
+exports.generateLowerPart = generateLowerPart;
+
+const centerJustifyGenerator = function(length){
+  return function(text){
+    let noOfSpaces = (length-text.length)/2;
+    let spaces = [];
+    for(let index=0; index<noOfSpaces; index++){
+      spaces.push(' ');
+    }
+    return spaces.join("") + text;
+  }
+}
+
+const generateFilledDiamond = function(height){
+  let upperPart = generateUpperPart(height,starLineGenerator,0);
+  let lowerPart = generateLowerPart(height,starLineGenerator,0);
+  let centerJustify = centerJustifyGenerator(height);
+  let justifiedTop = upperPart.map(centerJustify);
+  let justifiedBottom = lowerPart.map(centerJustify);
+  return justifiedTop.concat(justifiedBottom).join('\n');
+}
+
+exports.generateFilledDiamond = generateFilledDiamond;
+
+const generateHollowDiamond = function(height){
+  let upperPart = generateUpperPart(height,hollowLineGenerator,0);
+  let lowerPart = generateLowerPart(height,hollowLineGenerator,0);
+  let centerJustify = centerJustifyGenerator(height);
+  let justifiedTop = upperPart.map(centerJustify);
+  let justifiedBottom = lowerPart.map(centerJustify);
+  return justifiedTop.concat(justifiedBottom).join('\n');
+}
+
+exports.generateHollowDiamond = generateHollowDiamond;
+
+const generateAngledDiamond = function(height){
+  let centerJustify = centerJustifyGenerator(height);
+  let tip = [centerJustify('*')];
+  let upperPart = generateUpperPart(height,topGenerator,1);
+  let lowerPart = generateLowerPart(height,bottomGenerator,1);
+  let middlePart = hollowLineGenerator(height);
+  let justifiedTop = upperPart.map(centerJustify);
+  let justifiedBottom = lowerPart.map(centerJustify);
+  return tip.concat(justifiedTop,middlePart,justifiedBottom,tip).join('\n');
+}
+exports.generateAngledDiamond = generateAngledDiamond;
 
 const checkType = function(type,height,width){
   let output;
