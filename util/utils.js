@@ -8,6 +8,33 @@ const repeatCharacter = function(character,times) {
 
 exports.repeatCharacter = repeatCharacter;
 
+const repeatCharacterGenerator = function(character){
+  return function(times){
+    return repeatCharacter(character,times);
+  }
+}
+
+exports.repeatCharacterGenerator = repeatCharacterGenerator;
+
+const justify = function(text,length){
+  let noOfSpaces = length-text.length;
+  let spaces = [];
+  for(let index=0; index<noOfSpaces; index++){
+    spaces.push(' ');
+  }
+  return spaces.join("") + text;
+}
+
+exports.justify = justify;
+
+const createJustify = function(length){
+  return function(text){
+    return justify(text,length);
+  }
+}
+
+exports.createJustify = createJustify;
+
 const generateLine = function(character) {
   return function(length){
     return repeatCharacter(character,length);

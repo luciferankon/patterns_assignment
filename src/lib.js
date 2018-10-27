@@ -5,32 +5,31 @@ let {repeatCharacter,
     generateSpace,
     generateDash,
     addDelimiter,
-    modifyDelimiter} = require("../util/utils.js");
+    modifyDelimiter,
+    repeatCharacterGenerator,
+    createJustify} = require("../util/utils.js");
+
+const createArray = function(length){
+  let array = [];
+  for(let index=0; index<length; index++){
+    array[index] = index + 1;
+  }
+  return array;
+}
 
 const generateLeftTriangle = function(height){
-  let line="";
-  let leftTriangle="";
-  let delimiter="";
-  for(let row=0; row<height; row++){
-    line=generateStar(row+1);
-    leftTriangle += addDelimiter(line,delimiter);
-    delimiter=modifyDelimiter(delimiter);
-  }
-  return leftTriangle;
+  let rows = createArray(height);
+  let repeatCharacterTimes = repeatCharacterGenerator('*');
+  return rows.map(repeatCharacterTimes).join("\n");
 }
 
 exports.generateLeftTriangle = generateLeftTriangle;
 
 const generateRightTriangle = function(height){
-  let line="";
-  let rightTriangle="";
-  let delimiter="";
-  for(let row=0; row<height; row++){
-    line=generateSpace(height-row-1)+generateStar(row+1);
-    rightTriangle += addDelimiter(line,delimiter);
-    delimiter=modifyDelimiter(delimiter);
-  }
-  return rightTriangle;
+  let rows = createArray(height);
+  let repeatCharacterTimes = repeatCharacterGenerator('*');
+  let justifyByLength = createJustify(height);
+  return rows.map(repeatCharacterTimes).map(justifyByLength).join("\n");
 }
 
 exports.generateRightTriangle = generateRightTriangle;

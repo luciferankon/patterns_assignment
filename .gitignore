@@ -1,1 +1,4 @@
 .actual_out
+test/.*.swp
+src/.*.swp
+util/.*.swp

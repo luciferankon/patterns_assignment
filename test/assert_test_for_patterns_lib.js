@@ -11,7 +11,8 @@ let {repeatCharacter,
     generateSpace,
     generateDash,
     addDelimiter,
-    modifyDelimiter} = require("../util/utils.js");
+    modifyDelimiter,
+    justify} = require("../util/utils.js");
 
 //tests for repeatCharacter function
 assert.equal(repeatCharacter('*',5),'*****');
@@ -116,3 +117,8 @@ assert.equal(checkType('filledrec',1,1),'*');
 //have to be changed
 assert.equal(checkType('empty',1,1),'*\n\n*');
 assert.equal(checkType('alternate',2,1),'*\n-');
+
+//tests for justify function
+assert.equal(justify('ankon',5),'ankon');
+assert.equal(justify('ankon',10),'     ankon');
+assert.equal(justify('ankon',0),'ankon');
