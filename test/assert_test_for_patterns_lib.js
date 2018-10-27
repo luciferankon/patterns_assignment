@@ -4,12 +4,14 @@ let {generateLeftTriangle,
     generateFilledRectangle,
     generateEmptyRectangle,
     generateAlternateRectangle,
-    checkType} = require("../src/lib.js");
+    checkType,
+    createArrayForTriangle,
+    createArrayForRectangle} = require("../src/lib.js");
 let {repeatCharacter,
     appendLine,
-    generateStar,
-    generateSpace,
-    generateDash,
+    starLineGenerator,
+    hollowLineGenerator,
+    dashLineGenerator,
     addDelimiter,
     modifyDelimiter,
     justify} = require("../util/utils.js");
@@ -23,20 +25,20 @@ assert.equal(repeatCharacter('1',0),'');
 assert.equal(appendLine('**','@@','!!'),'**@@!!');
 assert.equal(appendLine('**','dd',''),'**dd');
 
-//test for generateStar function
-assert.equal(generateStar(3),'***');
-assert.equal(generateStar(0),'');
-assert.equal(generateStar(-1),'');
+//test for starLineGenerator function
+assert.equal(starLineGenerator(3),'***');
+assert.equal(starLineGenerator(0),'');
+assert.equal(starLineGenerator(-1),'');
 
-//test for generateSpace function
-assert.equal(generateSpace(3),'   ');
-assert.equal(generateSpace(0),'');
-assert.equal(generateSpace(-1),'');
+//test for hollowLineGenerator function
+assert.equal(hollowLineGenerator(3),'* *');
+assert.equal(hollowLineGenerator(0),'');
+assert.equal(hollowLineGenerator(-1),'');
 
-//test for generateDash function
-assert.equal(generateDash(3),'---');
-assert.equal(generateDash(0),'');
-assert.equal(generateDash(-1),'');
+//test for dashLineGenerator function
+assert.equal(dashLineGenerator(3),'---');
+assert.equal(dashLineGenerator(0),'');
+assert.equal(dashLineGenerator(-1),'');
 
 //tests for addDelimiter function
 assert.equal(addDelimiter('ankon',''),'ankon');
@@ -94,9 +96,12 @@ outputForEmptyRectangle += '\n***';
 assert.equal(generateEmptyRectangle(3,3),outputForEmptyRectangle);
 outputForEmptyRectangle = '';
 outputForEmptyRectangle += '*';
-outputForEmptyRectangle += '\n**';
+outputForEmptyRectangle += '\n*';
 outputForEmptyRectangle += '\n*';
 assert.equal(generateEmptyRectangle(3,1),outputForEmptyRectangle);
+outputForEmptyRectangle = '';
+outputForEmptyRectangle += '*';
+assert.equal(generateEmptyRectangle(1,1),outputForEmptyRectangle);
 
 //tests for generateAlternateRectangle function
 let outputForAlternateRectangle = '';
@@ -114,11 +119,21 @@ assert.equal(generateAlternateRectangle(1,1),outputForAlternateRectangle);
 assert.equal(checkType('left',1),'*');
 assert.equal(checkType('right',1),'*');
 assert.equal(checkType('filledrec',1,1),'*');
-//have to be changed
-assert.equal(checkType('empty',1,1),'*\n\n*');
+assert.equal(checkType('empty',1,1),'*');
 assert.equal(checkType('alternate',2,1),'*\n-');
 
 //tests for justify function
 assert.equal(justify('ankon',5),'ankon');
 assert.equal(justify('ankon',10),'     ankon');
 assert.equal(justify('ankon',0),'ankon');
+
+//tests for createArrayForTriangle function
+assert.deepEqual(createArrayForTriangle(5),[1,2,3,4,5]);
+assert.deepEqual(createArrayForTriangle(1),[1]);
+assert.deepEqual(createArrayForTriangle(0),[]);
+
+//tests for createArrayForRectangle function
+assert.deepEqual(createArrayForRectangle(5,6),[6,6,6,6,6]);
+assert.deepEqual(createArrayForRectangle(0,6),[]);
+assert.deepEqual(createArrayForRectangle(5,0),[0,0,0,0,0]);
+
