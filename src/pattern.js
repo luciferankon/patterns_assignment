@@ -6,6 +6,8 @@ const repeatCharacter = function(character,times) {
   return repeated;
 }
 
+exports.repeatCharacter = repeatCharacter;
+
 const generateLine = function(character) {
   return function(length){
     return repeatCharacter(character,length);
@@ -16,75 +18,27 @@ const appendLine = function(previous,firstStringToAdd,secondStringToAdd){
   return previous+firstStringToAdd+secondStringToAdd;
 }
 
+exports.appendLine = appendLine;
+
 const generateStar = generateLine("*");
 const generateSpace = generateLine(" ");
 const generateDash = generateLine("-");
 
-const organizeLine = function(length,repeatTimes,firstNonBlank,lastNonBlank){
-  let line="";
-  line = appendLine(generateSpace(length-1-repeatTimes),firstNonBlank,generateSpace(2*repeatTimes+1))
-  line = appendLine(line,lastNonBlank,"\n");
-  return line;
-}
-
-const generateUpperPart = function(height,firstNonBlank,lastNonBlank){
-  let upperPart="";
-  upperPart = appendLine(upperPart,generateSpace(height),"*");
-  upperPart = appendLine(upperPart,"\n","");
-  for(let repeatTimes=0; repeatTimes<height-1; repeatTimes++){
-    upperPart = appendLine(upperPart,organizeLine(height,repeatTimes,firstNonBlank,lastNonBlank),"");
-  }
-  return upperPart;
-}
-
-const generateLowerPart = function(height,firstNonBlank,lastNonBlank){
-  let lowerPart = "";
-  for(let repeatTimes=height-2; repeatTimes>=0; repeatTimes--){
-    lowerPart = appendLine(lowerPart,organizeLine(height,repeatTimes,firstNonBlank,lastNonBlank),"");
-  }
-  lowerPart = appendLine(lowerPart,generateSpace(height),"*");
-  return lowerPart;
-}
+exports.generateStar = generateStar;
+exports.generateSpace = generateSpace;
+exports.generateDash = generateDash;
 
 const addDelimiter = function(line,delimiter){
   return delimiter+line;
 }
 
+exports.addDelimiter = addDelimiter;
+
 const modifyDelimiter = function() {
   return "\n";
 }
 
-const generateFilledDiamond = function(height){
-  let topHalf = "";
-  let bottomHalf = "";
-  let delimiter = "";
-  for(let repeatTimes=0; repeatTimes<Math.floor(height/2); repeatTimes++){
-    let line = generateSpace(Math.floor(height/2)-repeatTimes)+generateStar(2*repeatTimes+1);
-    topHalf = appendLine(topHalf,delimiter,line);
-    bottomHalf = appendLine(line,delimiter,bottomHalf);
-    delimiter=modifyDelimiter();
-  } 
-
-  return topHalf+"\n"+generateStar(height-height%2+1)+"\n"+bottomHalf;
-}
-
-const generateHollowDiamond = function(height){
-  let line="";
-  let hollowDiamond="";
-  hollowDiamond += generateUpperPart(Math.floor(height/2),"*","*");
-  hollowDiamond += "*"+generateSpace(height-height%2-1)+"*"+"\n";
-  hollowDiamond += generateLowerPart(Math.floor(height/2),"*","*");
-  return hollowDiamond;
-}
-
-const generateAngledDiamond = function(height){
-  let line="";
-  let angledDiamond="";
-  angledDiamond += generateUpperPart(Math.floor(height/2),"/","\\");
-  angledDiamond += "*"+generateSpace(height-height%2-1)+"*"+"\n";
-  angledDiamond += generateLowerPart(Math.floor(height/2),"\\","/");
-  return angledDiamond;
-}
+exports.modifyDelimiter = modifyDelimiter;
 
 const generateLeftTriangle = function(height){
   let line="";
@@ -98,6 +52,8 @@ const generateLeftTriangle = function(height){
   return leftTriangle;
 }
 
+exports.generateLeftTriangle = generateLeftTriangle;
+
 const generateRightTriangle = function(height){
   let line="";
   let rightTriangle="";
@@ -110,6 +66,8 @@ const generateRightTriangle = function(height){
   return rightTriangle;
 }
 
+exports.generateRightTriangle = generateRightTriangle;
+
 const generateFilledRectangle = function(height,width){
   let line="";
   let filledRectangle="";
@@ -121,6 +79,8 @@ const generateFilledRectangle = function(height,width){
   }
   return filledRectangle;
 }
+
+exports.generateFilledRectangle = generateFilledRectangle;
 
 const generateEmptyRectangle = function(height,width){
   let line="";
@@ -139,6 +99,8 @@ const generateEmptyRectangle = function(height,width){
   return emptyRectangle;
 }
 
+exports.generateEmptyRectangle = generateEmptyRectangle;
+
 const generateAlternateRectangle = function(height,width){
   let line="";
   let alternateRectangle="";
@@ -154,7 +116,10 @@ const generateAlternateRectangle = function(height,width){
   return alternateRectangle;
 }
 
+exports.generateAlternateRectangle = generateAlternateRectangle;
+
 const checkType = function(type,height,width){
+  let output;
   if(type=="filled"){
     output=generateFilledDiamond(height);
   }else if(type=="hollow"){
@@ -175,13 +140,5 @@ const checkType = function(type,height,width){
   return output;
 }
 
-const main = function(){
-  let height = +process.argv[3];
-  let width = +process.argv[4];
-  let type = process.argv[2];
-  let output = "";
-  output=checkType(type,height,width);
-  console.log(output);
-}
+exports.checkType = checkType;
 
-main();
