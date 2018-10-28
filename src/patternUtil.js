@@ -79,3 +79,46 @@ const modifyDelimiter = function() {
 }
 
 exports.modifyDelimiter = modifyDelimiter;
+
+const getUserArgs = function(){
+  return process.argv.slice(2);
+}
+
+exports.getUserArgs = getUserArgs;
+
+const categorizeArguments = function(userArgs){
+  let index = 0;
+  let categorizedArguments = {};
+  let argumentType = {'rectangle': categorizeRectangle,
+                      'triangle' : categorizeTriangle,
+                      'diamond'  : categorizeDiamond};
+  categorizedArguments = argumentType[userArgs[index++]](userArgs,index);
+  return categorizedArguments;
+}
+
+exports.categorizeArguments = categorizeArguments;
+
+const categorizeRectangle = function(userArgs,index){
+  let rectangle = {'type' : userArgs[index++],
+                   'height' : userArgs[index++],
+                   'width' : userArgs[index++]};
+  return rectangle;
+}
+
+exports.categorizeRectangle = categorizeRectangle;
+
+const categorizeTriangle = function(userArgs,index){
+  let triangle = {'type' : userArgs[index++],
+                  'height':userArgs[index++]};
+  return triangle;
+}
+
+exports.categorizeTriangle = categorizeTriangle;
+
+const categorizeDiamond =function(userArgs,index){
+  let diamond = {'type' : userArgs[index++],
+                 'height' : userArgs[index++]};
+  return diamond;
+}
+
+exports.categorizeDiamond = categorizeDiamond;

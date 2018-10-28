@@ -6,7 +6,11 @@ let {repeatCharacter,
     dashLineGenerator,
     addDelimiter,
     modifyDelimiter,
-    justify} = require("../src/patternUtil.js");
+    justify,
+    categorizeRectangle,
+    categorizeTriangle,
+    categorizeDiamond,
+    categorizeArguments} = require("../src/patternUtil.js");
 
 //tests for repeatCharacter function
 assert.equal(repeatCharacter('*',5),'*****');
@@ -48,3 +52,29 @@ assert.equal(justify('ankon',5),'ankon');
 assert.equal(justify('ankon',10),'     ankon');
 assert.equal(justify('ankon',0),'ankon');
 
+//tests for categorizeRectangle function
+let rectangle = {'type':'filled','height':'7','width':'20'};
+assert.deepEqual(categorizeRectangle(['filled','7','20'],0),rectangle);
+rectangle = {'type':'empty','height':'7','width':'20'};
+assert.deepEqual(categorizeRectangle(['filled','7','20','empty','7','20'],3),rectangle);
+
+//tests for categorizeTriangle function
+let triangle = {'type':'left','height':'7'};
+assert.deepEqual(categorizeTriangle(['left','7','20'],0),triangle);
+triangle = {'type':'right','height':'7'};
+assert.deepEqual(categorizeTriangle(['filled','7','20','right','7','20'],3),triangle);
+
+//tests for categorizeDiamond function
+let diamond = {'type':'filled','height':'7'};
+assert.deepEqual(categorizeDiamond(['filled','7','20'],0),diamond);
+diamond = {'type':'hollow','height':'7'};
+assert.deepEqual(categorizeDiamond(['filled','7','20','hollow','7','20'],3),diamond);
+
+//tests for categorizeArguments function
+rectangle = {'type':'filled','height':'7','width':'20'};
+assert.deepEqual(categorizeArguments(['rectangle','filled','7','20']),rectangle);
+let userArgs = ['rectangle','filled','7','20','triangle','left','5','diamond','filled','5'];
+let output = {'type':'filled',
+             'height':'7',
+             'width':'20'};
+assert.deepEqual(categorizeArguments(userArgs),output);

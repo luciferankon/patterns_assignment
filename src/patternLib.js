@@ -147,28 +147,3 @@ const generateAngledDiamond = function(height){
   return tip.concat(justifiedTop,middlePart,justifiedBottom,tip).join('\n');
 }
 exports.generateAngledDiamond = generateAngledDiamond;
-
-const checkType = function(type,height,width){
-  let output;
-  if(type=="filled"){
-    output=generateFilledDiamond(height);
-  }else if(type=="hollow"){
-    output=generateHollowDiamond(height);
-  }else if(type=="angled"){
-    output=generateAngledDiamond(height);
-  }else if(type=="left"){
-    output=generateLeftTriangle(height);
-  }else if(type=="right"){
-    output=generateRightTriangle(height);
-  }else if(type=="filledrec"){
-    output=generateFilledRectangle(height,width);
-  }else if(type=="empty"){
-    output=generateEmptyRectangle(height,width);
-  }else if(type=="alternate"){
-    output=generateAlternateRectangle(height,width);
-  }
-  return output;
-}
-
-exports.checkType = checkType;
-

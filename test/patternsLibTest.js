@@ -4,7 +4,6 @@ let {generateLeftTriangle,
     generateFilledRectangle,
     generateEmptyRectangle,
     generateAlternateRectangle,
-    checkType,
     createArrayForTriangle,
     createArrayForRectangle,
     generateFilledDiamond,
@@ -76,13 +75,6 @@ assert.equal(generateAlternateRectangle(5,5),outputForAlternateRectangle);
 outputForAlternateRectangle = '';
 outputForAlternateRectangle += '*';
 assert.equal(generateAlternateRectangle(1,1),outputForAlternateRectangle);
-
-//tests for checkType function
-assert.equal(checkType('left',1),'*');
-assert.equal(checkType('right',1),'*');
-assert.equal(checkType('filledrec',1,1),'*');
-assert.equal(checkType('empty',1,1),'*');
-assert.equal(checkType('alternate',2,1),'*\n-');
 
 //tests for createArrayForTriangle function
 assert.deepEqual(createArrayForTriangle(5),[1,2,3,4,5]);
