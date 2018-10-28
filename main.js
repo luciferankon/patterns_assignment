@@ -6,12 +6,17 @@ let {generateLeftTriangle,
     checkType,
     generateFilledDiamond} = require("./src/patternLib.js");
 
+const getUserArgs = function(){  
+  return process.argv.slice(2);
+}
+
 const main = function(){
-  let height = +process.argv[3];
-  let width = +process.argv[4];
-  let type = process.argv[2];
+  let userArgs = getUserArgs();
   let output = "";
-  output=checkType(type,height,width);
+  let type = userArgs[0];
+  let height = +userArgs[1];
+  let width = +userArgs[2];
+  output=checkType(type, height, width);
   console.log(output);
 }
 
