@@ -1,16 +1,18 @@
 let assert = require("assert");
-let {repeatCharacter,
-    appendLine,
-    starLineGenerator,
-    hollowLineGenerator,
-    dashLineGenerator,
-    addDelimiter,
-    modifyDelimiter,
-    justify,
-    categorizeRectangle,
-    categorizeTriangle,
-    categorizeDiamond,
-    categorizeArguments} = require("../src/patternUtil.js");
+let {
+  repeatCharacter,
+  appendLine,
+  starLineGenerator,
+  hollowLineGenerator,
+  dashLineGenerator,
+  addDelimiter,
+  modifyDelimiter,
+  justify,
+  categorizeRectangle,
+  categorizeTriangle,
+  categorizeDiamond,
+  categorizeArguments
+} = require("../src/patternUtil.js");
 
 //tests for repeatCharacter function
 assert.equal(repeatCharacter('*',5),'*****');

@@ -1,15 +1,24 @@
-let {generateFilledDiamond,
-    generateHollowDiamond,
-    generateAngledDiamond} = require("./src/patternLib.js");
+let {
+  generateFilledDiamond,
+  generateHollowDiamond,
+  generateAngledDiamond
+} = require("./src/patternLib.js");
 
-let {getUserArgs,
-    categorizeArguments} = require("./src/patternUtil.js");
+let {
+  getUserArgs,
+  categorizeArguments
+} = require("./src/patternUtil.js");
 
 const drawPattern = function(categorizedArguments){
-  let {type,height} = categorizedArguments;
-  let identifier = {'filled' : generateFilledDiamond,
-                    'hollow' : generateHollowDiamond,
-                    'angled' : generateAngledDiamond};
+  let {
+    type,
+    height
+  } = categorizedArguments;
+  let identifier = {
+    'filled' : generateFilledDiamond,
+    'hollow' : generateHollowDiamond,
+    'angled' : generateAngledDiamond
+  };
   return identifier[type](height);
 }
 

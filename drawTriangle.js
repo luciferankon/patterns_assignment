@@ -1,14 +1,23 @@
-let {generateLeftTriangle,
-    generateRightTriangle} = require("./src/patternLib.js");
+let {
+  generateLeftTriangle,
+  generateRightTriangle
+} = require("./src/patternLib.js");
 
-let {getUserArgs,
-    categorizeArguments} = require("./src/patternUtil.js");
+let {
+  getUserArgs,
+  categorizeArguments
+} = require("./src/patternUtil.js");
 
 const drawPattern = function(categorizedArguments){
-  let {type,height} = categorizedArguments;
-  let identifier = {'left' : generateLeftTriangle,
-                    'right': generateRightTriangle};
-  return identifier[type](height);
+  let {
+    type,
+    height
+  } = categorizedArguments;
+  let identifier = {
+    'left' : generateLeftTriangle,
+    'right': generateRightTriangle
+  };
+  return identifier[type](+height);
 }
 
 const main = function(){

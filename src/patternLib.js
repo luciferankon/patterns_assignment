@@ -1,28 +1,29 @@
-let {repeatCharacter,
-    generateLine,
-    appendLine,
-    starLineGenerator,
-    hollowLineGenerator,
-    dashLineGenerator,
-    addDelimiter,
-    modifyDelimiter,
-    repeatCharacterGenerator,
-    createJustify,
-    topGenerator,
-    bottomGenerator} = require("./patternUtil.js");
+let {
+  repeatCharacter,
+  generateLine,
+  appendLine,
+  starLineGenerator,
+  hollowLineGenerator,
+  dashLineGenerator,
+  addDelimiter,
+  modifyDelimiter,
+  repeatCharacterGenerator,
+  createJustify,
+  topGenerator,
+  bottomGenerator
+} = require("./patternUtil.js");
 
-const createArrayForTriangle = function(length){
-  let array = [];
-  for(let index=0; index<length; index++){
-    array[index] = index + 1;
-  }
-  return array;
+const createNumbersUpto = function(length){
+  let count = 0;
+  let array = new Array(length).fill(count);
+  let result = array.map(function(element){count++; return element+count;});
+  return result;
 }
 
-exports.createArrayForTriangle = createArrayForTriangle;
+exports.createNumbersUpto = createNumbersUpto;
 
 const generateLeftTriangle = function(height){
-  let rows = createArrayForTriangle(height);
+  let rows = createNumbersUpto(height);
   let repeatCharacterTimes = repeatCharacterGenerator('*');
   return rows.map(repeatCharacterTimes).join("\n");
 }
@@ -30,7 +31,7 @@ const generateLeftTriangle = function(height){
 exports.generateLeftTriangle = generateLeftTriangle;
 
 const generateRightTriangle = function(height){
-  let rows = createArrayForTriangle(height);
+  let rows = createNumbersUpto(height);
   let repeatCharacterTimes = repeatCharacterGenerator('*');
   let justifyByLength = createJustify(height);
   return rows.map(repeatCharacterTimes).map(justifyByLength).join("\n");
@@ -38,14 +39,14 @@ const generateRightTriangle = function(height){
 
 exports.generateRightTriangle = generateRightTriangle;
 
-const createArrayForRectangle = function(length,element){
+const repeatElement = function(length,element){
   return new Array(length).fill(element);
 }
 
-exports.createArrayForRectangle = createArrayForRectangle;
+exports.repeatElement = repeatElement;
 
 const generateFilledRectangle = function(height,width){
-  let rows = createArrayForRectangle(height,width);
+  let rows = repeatElement(height,width);
   let repeatCharacterTimes = repeatCharacterGenerator('*');
   return rows.map(repeatCharacterTimes).join("\n");
 }
@@ -71,11 +72,10 @@ exports.generateEmptyRectangle = generateEmptyRectangle;
 
 const generateAlternateRectangle = function(height,width){
   let alternateRectangle=[];
+  let lineGenerators = [starLineGenerator,dashLineGenerator];
   for(let row=0; row<height; row++){
-    let line=starLineGenerator(width);
-    if(row%2!=0){
-      line=dashLineGenerator(width);
-    }
+    let lineGenerator = lineGenerators[row%2];
+    let line = lineGenerator(width);
     alternateRectangle.push(line);
   }
   return alternateRectangle.join("\n");

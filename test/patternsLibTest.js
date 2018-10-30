@@ -1,14 +1,16 @@
 let assert = require("assert");
-let {generateLeftTriangle,
-    generateRightTriangle,
-    generateFilledRectangle,
-    generateEmptyRectangle,
-    generateAlternateRectangle,
-    createArrayForTriangle,
-    createArrayForRectangle,
-    generateFilledDiamond,
-    generateHollowDiamond,
-    generateAngledDiamond} = require("../src/patternLib.js");
+let {
+  generateLeftTriangle,
+  generateRightTriangle,
+  generateFilledRectangle,
+  generateEmptyRectangle,
+  generateAlternateRectangle,
+  createNumbersUpto,
+  repeatElement,
+  generateFilledDiamond,
+  generateHollowDiamond,
+  generateAngledDiamond
+} = require("../src/patternLib.js");
 
 //tests for generateLeftTriangle function
 let outputForLeftTriangle = '';
@@ -76,15 +78,15 @@ outputForAlternateRectangle = '';
 outputForAlternateRectangle += '*';
 assert.equal(generateAlternateRectangle(1,1),outputForAlternateRectangle);
 
-//tests for createArrayForTriangle function
-assert.deepEqual(createArrayForTriangle(5),[1,2,3,4,5]);
-assert.deepEqual(createArrayForTriangle(1),[1]);
-assert.deepEqual(createArrayForTriangle(0),[]);
+//tests for createNumbersUpto function
+assert.deepEqual(createNumbersUpto(5),[1,2,3,4,5]);
+assert.deepEqual(createNumbersUpto(1),[1]);
+assert.deepEqual(createNumbersUpto(0),[]);
 
-//tests for createArrayForRectangle function
-assert.deepEqual(createArrayForRectangle(5,6),[6,6,6,6,6]);
-assert.deepEqual(createArrayForRectangle(0,6),[]);
-assert.deepEqual(createArrayForRectangle(5,0),[0,0,0,0,0]);
+//tests for repeatElement function
+assert.deepEqual(repeatElement(5,6),[6,6,6,6,6]);
+assert.deepEqual(repeatElement(0,6),[]);
+assert.deepEqual(repeatElement(5,0),[0,0,0,0,0]);
 
 //tests for generateFilledDiamond function
 let outputForFilledDiamond = '';
