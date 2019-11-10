@@ -1,12 +1,7 @@
 let {
-  repeatCharacter,
-  generateLine,
-  appendLine,
   starLineGenerator,
   hollowLineGenerator,
   dashLineGenerator,
-  addDelimiter,
-  modifyDelimiter,
   repeatCharacterGenerator,
   createJustify,
   topGenerator,
@@ -81,24 +76,26 @@ const generateAlternateRectangle = function(height,width){
   return alternateRectangle.join("\n");
 }
 
+const generatePart = function(start, end, generator){
+  let line = [];
+	for (let i = start; i < end; i++) {
+		line.push(generator(2 * i + 1));
+	}
+	return line;
+}
+
 exports.generateAlternateRectangle = generateAlternateRectangle;
 
 const generateUpperPart = function(height,generator,startsFrom){
-  let line = [];
-  for(let i=startsFrom; i<(height/2 - startsFrom); i++){
-    line.push(generator(2*i+1));
-  }
-  return line;
+  const end = (height/2 - startsFrom);
+  return generatePart(startsFrom, end, generator);
 }
 
 exports.generateUpperPart = generateUpperPart;
 
 const generateLowerPart = function(height,generator,endsWith){
-  let line = [];
-  for(let i=Math.floor(height/2); i>endsWith; i--){
-    line.push(generator(2*i-1));
-  }
-  return line;
+  const end = Math.floor(height/2);
+  return generatePart(endsWith, end, generator).reverse();
 }
 
 exports.generateLowerPart = generateLowerPart;
@@ -106,11 +103,8 @@ exports.generateLowerPart = generateLowerPart;
 const centerJustifyGenerator = function(length){
   return function(text){
     let noOfSpaces = (length-text.length)/2;
-    let spaces = [];
-    for(let index=0; index<noOfSpaces; index++){
-      spaces.push(' ');
-    }
-    return spaces.join("") + text;
+    const spaces = ' '.repeat(noOfSpaces);
+    return spaces + text;
   }
 }
 
